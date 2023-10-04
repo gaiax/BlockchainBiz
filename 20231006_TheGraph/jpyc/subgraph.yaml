@@ -1,0 +1,75 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: JPYC
+    network: matic
+    source:
+      address: "0x431D5dfF03120AFA4bDf332c61A6e1766eF37BDB"
+      abi: JPYC
+      startBlock: 28212531
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - AuthorizationCanceled
+        - AuthorizationUsed
+        - Blocklisted
+        - BlocklisterChanged
+        - Burn
+        - Mint
+        - MinterAdminChanged
+        - MinterConfigured
+        - MinterRemoved
+        - OwnershipTransferred
+        - Pause
+        - PauserChanged
+        - RescuerChanged
+        - Transfer
+        - UnBlocklisted
+        - Unpause
+        - Upgraded
+      abis:
+        - name: JPYC
+          file: ./abis/JPYC.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: AuthorizationCanceled(indexed address,indexed bytes32)
+          handler: handleAuthorizationCanceled
+        - event: AuthorizationUsed(indexed address,indexed bytes32)
+          handler: handleAuthorizationUsed
+        - event: Blocklisted(indexed address)
+          handler: handleBlocklisted
+        - event: BlocklisterChanged(indexed address)
+          handler: handleBlocklisterChanged
+        - event: Burn(indexed address,uint256)
+          handler: handleBurn
+        - event: Mint(indexed address,indexed address,uint256)
+          handler: handleMint
+        - event: MinterAdminChanged(indexed address)
+          handler: handleMinterAdminChanged
+        - event: MinterConfigured(indexed address,uint256)
+          handler: handleMinterConfigured
+        - event: MinterRemoved(indexed address)
+          handler: handleMinterRemoved
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Pause()
+          handler: handlePause
+        - event: PauserChanged(indexed address)
+          handler: handlePauserChanged
+        - event: RescuerChanged(indexed address)
+          handler: handleRescuerChanged
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+        - event: UnBlocklisted(indexed address)
+          handler: handleUnBlocklisted
+        - event: Unpause()
+          handler: handleUnpause
+        - event: Upgraded(indexed address)
+          handler: handleUpgraded
+      file: ./src/jpyc.ts
